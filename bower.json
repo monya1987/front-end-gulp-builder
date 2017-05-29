@@ -1,0 +1,23 @@
+{
+  "name": "Front End Starter",
+  "description": "Local composition to create HTML | CSS | JS, compress images.",
+  "main": "index.js",
+  "authors": [
+    "MPesterev"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    // "normalize-css": "^4.2.0",
+    "jquery": "~3.1.0",
+    "font-awesome": "^4.7.0",
+    "foundation-sites": "^6.3.1"
+  }
+}
