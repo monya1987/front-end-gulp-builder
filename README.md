@@ -5,3 +5,4 @@
 4 - gulp<br><br>
 
 - after installation you have on board jquery | font-awesome | foundation (js core & modals)
+- NPM \ compress images \ babel \ uglify \ server & etc.
