@@ -9,9 +9,8 @@ var gulp = require('gulp'),
     rigger = require('gulp-rigger'),
     cssmin = require('gulp-clean-css'),
     imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
     rimraf = require('rimraf'),
-    browserSync = require("browser-sync"),
+    browserSync = require("browser-sync").create(),
     reload = browserSync.reload;
 
 var path = {
@@ -66,10 +65,10 @@ var config = {
     server: {
         baseDir: "./build"
     },
-    tunnel: false,
-    host: 'localhost',
-    port: 9009,
-    logPrefix: "Local server:"
+    // tunnel: false,
+    // host: 'localhost',
+    // port: 9009,
+    // logPrefix: "Local server:"
 };
 
 gulp.task('html:build', function () {
@@ -105,12 +104,12 @@ gulp.task('style:build', function () {
 
 gulp.task('image:build', function () {
     gulp.src(path.src.img)
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()],
-            interlaced: true
-        }))
+        .pipe(imagemin([
+            imagemin.gifsicle({interlaced: true}),
+            imagemin.jpegtran({progressive: true}),
+            imagemin.optipng({optimizationLevel: 5}),
+            imagemin.svgo({plugins: [{removeViewBox: true}]})
+        ]))
         .pipe(gulp.dest(path.build.img))
         .pipe(reload({stream: true}));
 });
@@ -137,7 +136,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('webserver', function () {
-    browserSync(config);
+    browserSync.init(config);
 });
 
 gulp.task('clean', function (cb) {
