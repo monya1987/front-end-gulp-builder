@@ -1,13 +1,11 @@
 'use strict';
 
 var gulp = require('gulp'),
-    prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     babel = require('gulp-babel'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
-    cssmin = require('gulp-clean-css'),
     imagemin = require('gulp-imagemin'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync").create(),
@@ -94,9 +92,7 @@ gulp.task('js:build', function () {
 gulp.task('style:build', function () {
     gulp.src(path.src.style)
         .pipe(sourcemaps.init())
-        .pipe(sass())
-        .pipe(prefixer())
-        .pipe(cssmin())
+        .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}));
